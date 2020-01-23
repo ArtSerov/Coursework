@@ -4,19 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Curs;
 namespace Curs
 {
-    interface IWritableObject
+    public interface IWritableObject
     {
-        void Write(SaveManeger man);
+        void Write(SaveManager man);
     }
-    public class SaveManeger
+    public class SaveManager
     {
         FileInfo file;
-        public void SaveManager(string filename)
+
+        public  SaveManager(string filename)
         {
             file = new FileInfo(filename);
-            file.CreateText();
+            file.CreateText().Close();
         }
 
         public void WriteLine(string line)
@@ -25,7 +27,7 @@ namespace Curs
             output.WriteLine(line);
             output.Close();
         }
-        void WriteObject(IWritableObject obj)
+        public void WriteObject(IWritableObject obj)
         {
             obj.Write(this);
         }

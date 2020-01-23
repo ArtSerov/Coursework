@@ -25,7 +25,7 @@ namespace Cours
         public void SetFN(string name) { family_name = name; }
         public void SetPop(int pop) { Population += pop; }
 
-        public void Write(SaveManeger man)
+        public void Write(SaveManager man)
         {
             man.WriteLine($"family name: {family_name}");
             man.WriteLine($"population: {Population}");
@@ -73,7 +73,7 @@ namespace Cours
             return Name + " " + " из семейства " + family.getfamily_name;
         }
 
-        public void Write(SaveManeger man)
+        public void Write(SaveManager man)
         {
             man.WriteLine($"Name: {Name}");
             man.WriteLine($"Continent habitat: {continent_habitat}");
@@ -109,7 +109,7 @@ namespace Cours
             else presence_heat = false;
 
         }
-
+        public string GetName { get { return name_complex; } }
         public void adding(TypeOfAnimal animals)
         {
             presents.Add(animals, 0);
@@ -225,10 +225,17 @@ namespace Cours
             }
         }
 
-        public void Write(SaveManeger man)
+        public void Write(SaveManager man)
         {
             man.WriteLine($"Name complex: { name_complex}");
             man.WriteLine($"room number: {room_number}");
+            man.WriteLine("Животных в комплексе: " + animals_in_room + ";");
+            man.WriteLine("Корм для комплеска: " + daily_feed + ";");
+            foreach (var x in presents)
+            {
+                if (x.Value == 0) continue;
+                man.WriteLine(x.Key+ " в количестве " + x.Value);
+            } 
         }
     }
 

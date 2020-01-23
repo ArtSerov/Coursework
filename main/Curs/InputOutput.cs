@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Cours;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Coursework;
+
 namespace Curs
 {
     class InputOutput
@@ -176,16 +177,16 @@ namespace Curs
           {
             for (int i = 0; i < complices.Count; i++)
             {
-                
-                StreamWriter sw = new StreamWriter(complices[i] + ".csv", false, Encoding.UTF8);
-                sw.WriteLine("Животных в комплексе: " + complices[i].animals_in_room + ";");
-                sw.WriteLine("Корм для комплеска: " + complices[i].daily_feed + ";");
-                foreach (var x in complices[i].presents)
+
+                SaveManager man = new SaveManager(complices[i].GetName + ".csv");
+                List<IWritableObject> allWritable = new List<IWritableObject>();
+                allWritable.Add(complices[i]);
+                foreach (var x in allWritable)
                 {
-                    if (x.Value == 0) continue;
-                    sw.WriteLine(x.Key + " в количестве "+ x.Value);
+                    
+                    man.WriteObject(x);
                 }
-                sw.Close();
+                
             }
           }
           
