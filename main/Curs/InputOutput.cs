@@ -42,77 +42,79 @@ namespace Curs
             sr.Close();
             return fam;
         }
+        #region
+        ///* public static List<TypeOfAnimal> ReadAnimalsData(string journal, List<string>  waterfam,ref List<FamilyOfAnimals> allfam)
+        // {
+        //     List<TypeOfAnimal> animals = new List<TypeOfAnimal>();
+        //     StreamReader sr = new StreamReader(journal);
+        //     int s = 0;
+        //     while (!sr.EndOfStream)
+        //     {
+        //         int flag=-1;
+        //         int c = 0;
+        //         string[] values = sr.ReadLine().Split(';');
+        //         foreach(var x in allfam)
+        //         {
+        //             if (values[0] == x.getfamily_name) flag = c;
+        //             c++;
+        //         }
+        //         if (flag == -1)
+        //         {
+        //             FamilyOfAnimals family = new FamilyOfAnimals(values[0]);
+        //             allfam.Add(family);
+        //             animals.Add(new TypeOfAnimal(family, values[1], float.Parse(values[2]), values[3]));
+        //             animals[s].NeedInWater(waterfam);
+        //         }
+        //         else
+        //         {
+        //             animals.Add(new TypeOfAnimal(allfam[flag], values[1], float.Parse(values[2]), values[3]));
+        //             animals[s].NeedInWater(waterfam);
+        //         }
+        //         s++;
+        //     }
+        //     sr.Close();
 
-        public static List<TypeOfAnimal> ReadAnimalsData(string journal, List<string>  waterfam,ref List<FamilyOfAnimals> allfam)
-        {
-            List<TypeOfAnimal> animals = new List<TypeOfAnimal>();
-            StreamReader sr = new StreamReader(journal);
-            int s = 0;
-            while (!sr.EndOfStream)
-            {
-                int flag=-1;
-                int c = 0;
-                string[] values = sr.ReadLine().Split(';');
-                foreach(var x in allfam)
-                {
-                    if (values[0] == x.getfamily_name) flag = c;
-                    c++;
-                }
-                if (flag == -1)
-                {
-                    FamilyOfAnimals family = new FamilyOfAnimals(values[0]);
-                    allfam.Add(family);
-                    animals.Add(new TypeOfAnimal(family, values[1], float.Parse(values[2]), values[3]));
-                    animals[s].NeedInWater(waterfam);
-                }
-                else
-                {
-                    animals.Add(new TypeOfAnimal(allfam[flag], values[1], float.Parse(values[2]), values[3]));
-                    animals[s].NeedInWater(waterfam);
-                }
-                s++;
-            }
-            sr.Close();
-            return animals;
-        }
+        //     return animals;
+        // }*/
 
 
-        public static void СonsoleAddAni(ref List<TypeOfAnimal> animals, List<string> waterfam, ref List<FamilyOfAnimals> allfam)
-        {
-            Console.WriteLine("****************************\n");
-            Console.WriteLine("Добавление семейства и вида животного в БД зоопарка");
-            string a, b, c;
-            float d;
-            Console.WriteLine("Введите название семейства\n");
-            a = Console.ReadLine();
-            Console.WriteLine("Введите название вида \n");
-            b = Console.ReadLine();
-            Console.WriteLine("Введите название континента обитания\n");
-            c = Console.ReadLine();
-            Console.WriteLine("Введите кол-во корма\n");
-            d = float.Parse(Console.ReadLine());
-            int flag = -1;
-            int s = 0;
-            foreach (var x in allfam)
-            {
-                if (a == x.getfamily_name) flag = s;
-                s++;
-            }
-            if (flag == -1)
-            {
-                FamilyOfAnimals family = new FamilyOfAnimals(a);
-                allfam.Add(family);
-                TypeOfAnimal ani = new TypeOfAnimal(family, b, d, c);
-                ani.NeedInWater(waterfam);
-                animals.Add(ani);
-            }
-            else
-            {
-                TypeOfAnimal ani = new TypeOfAnimal(allfam[flag], b, d, c);
-                ani.NeedInWater(waterfam);
-                animals.Add(ani);
-            }
-        }
+        // /*public static void СonsoleAddAni(ref List<TypeOfAnimal> animals, List<string> waterfam, ref List<FamilyOfAnimals> allfam)
+        // {
+        //     Console.WriteLine("****************************\n");
+        //     Console.WriteLine("Добавление семейства и вида животного в БД зоопарка");
+        //     string a, b, c;
+        //     float d;
+        //     Console.WriteLine("Введите название семейства\n");
+        //     a = Console.ReadLine();
+        //     Console.WriteLine("Введите название вида \n");
+        //     b = Console.ReadLine();
+        //     Console.WriteLine("Введите название континента обитания\n");
+        //     c = Console.ReadLine();
+        //     Console.WriteLine("Введите кол-во корма\n");
+        //     d = float.Parse(Console.ReadLine());
+        //     int flag = -1;
+        //     int s = 0;
+        //     foreach (var x in allfam)
+        //     {
+        //         if (a == x.getfamily_name) flag = s;
+        //         s++;
+        //     }
+        //     if (flag == -1)
+        //     {
+        //         FamilyOfAnimals family = new FamilyOfAnimals(a);
+        //         allfam.Add(family);
+        //         TypeOfAnimal ani = new TypeOfAnimal(family, b, d, c);
+        //         ani.NeedInWater(waterfam);
+        //         animals.Add(ani);
+        //     }
+        //     else
+        //     {
+        //         TypeOfAnimal ani = new TypeOfAnimal(allfam[flag], b, d, c);
+        //         ani.NeedInWater(waterfam);
+        //         animals.Add(ani);
+        //     }
+        // }*/
+        #endregion
 
 
         public static void СonsoleAddComplex(ref List<Complex> сomplexes)

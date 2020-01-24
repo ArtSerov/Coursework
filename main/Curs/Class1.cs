@@ -15,21 +15,24 @@ namespace Cours
         private string family_name;
         private int Population;
 
-        public FamilyOfAnimals() { }
-        public FamilyOfAnimals(string fam_name)
-        {
-            family_name = fam_name;
-        }
         private FamilyOfAnimals(ILoadManager man)
         {
             family_name = man.ReadLine().Split(':')[1];
             Population = int.Parse(man.ReadLine().Split(':')[1]);
         }
+        public FamilyOfAnimals() { }
+        #region
+        public FamilyOfAnimals(string fam_name)
+        {
+            family_name = fam_name;
+        }
+       
         public int getpop { get { return Population; } }
         public string getfamily_name { get { return family_name; } }
         public void SetFN(string name) { family_name = name; }
         public void SetPop(int pop) { Population += pop; }
 
+        #endregion
         public void Write(SaveManager man)
         {
             man.WriteLine($"family name: {family_name}");
@@ -54,23 +57,29 @@ namespace Cours
         private bool Heat;
         FamilyOfAnimals family;
 
-        public TypeOfAnimal(FamilyOfAnimals family, string Name, float daily_feed_intake, string continent_habitat)
+        public TypeOfAnimal(ILoadManager man)
         {
-            this.family = family;
+
+            Name = man.ReadLine().Split(':')[1]; ;
+            daily_feed_intake = float.Parse(man.ReadLine().Split(':')[1]);
+            continent_habitat = man.ReadLine().Split(':')[1]; ;
+            Reservoir = bool.Parse(man.ReadLine().Split(':')[1]);
+            Heat = bool.Parse(man.ReadLine().Split(':')[1]);
+            FamilyOfAnimals fam = new FamilyOfAnimals(man.ReadLine().Split(':')[1]);
+            family = fam;
+        }
+        #region
+        public TypeOfAnimal(string Name, float daily_feed_intake, string continent_habitat,bool water,string family)
+        {
+            this.family = new FamilyOfAnimals(family);
             this.Name = Name;
             this.daily_feed_intake = daily_feed_intake;
             this.continent_habitat = continent_habitat;
             if (continent_habitat == "Южная Америка" || continent_habitat == "Африка" || continent_habitat == "Австралия") Heat = true;
             else Heat = false;
+            Reservoir = water;
         }
-        public TypeOfAnimal(ILoadManager man)
-        {
-            Name= man.ReadLine().Split(':')[1]; ;
-            daily_feed_intake= float.Parse(man.ReadLine().Split(':')[1]);
-            continent_habitat= man.ReadLine().Split(':')[1]; ;
-            if (continent_habitat == "Южная Америка" || continent_habitat == "Африка" || continent_habitat == "Австралия") Heat = true;
-            else Heat = false;
-        }
+        
         public void NeedInWater(List<string> waterfam)
         {
             for (int i = 0; i < waterfam.Count; i++)
@@ -92,7 +101,7 @@ namespace Cours
         {
             return Name + " " + " из семейства " + family.getfamily_name;
         }
-
+        #endregion
         public void Write(SaveManager man)
         {
             man.WriteLine($"Name: {Name}");
@@ -100,17 +109,21 @@ namespace Cours
             man.WriteLine($"Continent habitat: {continent_habitat}");
             man.WriteLine($"Reservoir:{Reservoir}");
             man.WriteLine($"Heat:{Heat}");
+            man.WriteLine($"family:{family.getfamily_name}");
         }
         public class Loader : IReadableObjectLoader
         {
             public Loader() { }
             public IReadbleObject Load(ILoadManager man)
             {
+                Console.WriteLine("Экземпляр класса создан");
                 return new TypeOfAnimal(man);
+                
             }
+            
         }
     }
-    public class Complex: IWritableObject
+    public class Complex: IWritableObject,IReadbleObject
     {
 
         private readonly string name_complex;
@@ -121,6 +134,16 @@ namespace Cours
         public int animals_in_room;
         public float daily_feed;
 
+        public Complex(ILoadManager man)
+        {
+
+            name_complex = man.ReadLine().Split(':')[1]; ;
+            room_number = int.Parse(man.ReadLine().Split(':')[1]);
+            availability_water = bool.Parse(man.ReadLine().Split(':')[1]) ;
+            presence_heat = bool.Parse(man.ReadLine().Split(':')[1]);
+        }
+
+        #region
         public Complex(string name_complex, int room_number)
         {
             this.name_complex = name_complex;
@@ -255,18 +278,21 @@ namespace Cours
                     Console.WriteLine($"{presents.ElementAt(i).Key.ToString()} в количестве { presents.ElementAt(i).Value} ");
             }
         }
-
+        #endregion
         public void Write(SaveManager man)
         {
             man.WriteLine($"Name complex: { name_complex}");
             man.WriteLine($"room number: {room_number}");
-            man.WriteLine("Животных в комплексе: " + animals_in_room + ";");
-            man.WriteLine("Корм для комплеска: " + daily_feed + ";");
-            foreach (var x in presents)
+            man.WriteLine($"availability water:{availability_water}");
+            man.WriteLine($"presence_heat:{presence_heat}");
+        }
+        public class Loader : IReadableObjectLoader
+        {
+            public Loader() { }
+            public IReadbleObject Load(ILoadManager man)
             {
-                if (x.Value == 0) continue;
-                man.WriteLine(x.Key+ " в количестве " + x.Value);
-            } 
+                return new Complex(man);
+            }
         }
     }
 

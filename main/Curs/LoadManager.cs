@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Cours;
+
 namespace Curs
 {
  
@@ -20,6 +22,7 @@ namespace Curs
         {
             IReadbleObject Load(ILoadManager man);
         }
+        
         public class LoadManager : ILoadManager
         {
             FileInfo file;
