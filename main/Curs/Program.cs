@@ -13,10 +13,10 @@ namespace Curs
         static void Main(string[] args)
         {
 
-            List<string> fam = InputOutput.ReadWaterFamilyData("family.csv");
+            List<string> fam = InputOutput.ReadWaterFamilyData("C:\\Users\\Student\\Documents\\Coursework\\main\\family.csv");
             List<FamilyOfAnimals> allfam = new List<FamilyOfAnimals>();
-            List<Complex> newcom = InputOutput.ReadComplexData("ComplexData.csv");
-            List<TypeOfAnimal> animals = InputOutput.ReadAnimalsData("Animals.csv",fam, ref allfam);
+            List<Complex> newcom = InputOutput.ReadComplexData("C:\\Users\\Student\\Documents\\Coursework\\main\\ComplexData.csv");
+            List<TypeOfAnimal> animals = InputOutput.ReadAnimalsData("C:\\Users\\Student\\Documents\\Coursework\\main\\Animals.csv", fam, ref allfam);
 
 
             Resettlement.AddInComplex(newcom, animals);                 //Авто добавление ТОФ в коммплексы с учетом тепла и воды 1

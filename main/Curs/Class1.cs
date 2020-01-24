@@ -10,7 +10,7 @@ namespace Cours
 
 {
 
-    public class FamilyOfAnimals: IWritableObject
+    public class FamilyOfAnimals: IWritableObject,IReadbleObject
     {
         private string family_name;
         private int Population;
@@ -19,6 +19,11 @@ namespace Cours
         public FamilyOfAnimals(string fam_name)
         {
             family_name = fam_name;
+        }
+        private FamilyOfAnimals(ILoadManager man)
+        {
+            family_name = man.ReadLine().Split(':')[1];
+            Population = int.Parse(man.ReadLine().Split(':')[1]);
         }
         public int getpop { get { return Population; } }
         public string getfamily_name { get { return family_name; } }
@@ -30,9 +35,17 @@ namespace Cours
             man.WriteLine($"family name: {family_name}");
             man.WriteLine($"population: {Population}");
         }
+        public class Loader : IReadableObjectLoader
+        {
+            public Loader() { }
+            public IReadbleObject Load(ILoadManager man)
+            {
+                return new FamilyOfAnimals(man);
+            }
+        }
     }
 
-    public class TypeOfAnimal: IWritableObject
+    public class TypeOfAnimal: IWritableObject,IReadbleObject
     {
         private readonly string Name;
         private readonly float daily_feed_intake;
@@ -50,7 +63,14 @@ namespace Cours
             if (continent_habitat == "Южная Америка" || continent_habitat == "Африка" || continent_habitat == "Австралия") Heat = true;
             else Heat = false;
         }
-
+        public TypeOfAnimal(ILoadManager man)
+        {
+            Name= man.ReadLine().Split(':')[1]; ;
+            daily_feed_intake= float.Parse(man.ReadLine().Split(':')[1]);
+            continent_habitat= man.ReadLine().Split(':')[1]; ;
+            if (continent_habitat == "Южная Америка" || continent_habitat == "Африка" || continent_habitat == "Австралия") Heat = true;
+            else Heat = false;
+        }
         public void NeedInWater(List<string> waterfam)
         {
             for (int i = 0; i < waterfam.Count; i++)
@@ -76,7 +96,18 @@ namespace Cours
         public void Write(SaveManager man)
         {
             man.WriteLine($"Name: {Name}");
+            man.WriteLine($"daily feed intake: {daily_feed_intake}");
             man.WriteLine($"Continent habitat: {continent_habitat}");
+            man.WriteLine($"Reservoir:{Reservoir}");
+            man.WriteLine($"Heat:{Heat}");
+        }
+        public class Loader : IReadableObjectLoader
+        {
+            public Loader() { }
+            public IReadbleObject Load(ILoadManager man)
+            {
+                return new TypeOfAnimal(man);
+            }
         }
     }
     public class Complex: IWritableObject
