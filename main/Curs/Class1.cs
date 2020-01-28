@@ -116,7 +116,6 @@ namespace Cours
             public Loader() { }
             public IReadbleObject Load(ILoadManager man)
             {
-                Console.WriteLine("Экземпляр класса создан");
                 return new TypeOfAnimal(man);
                 
             }
@@ -307,23 +306,23 @@ namespace Cours
                 {
                     if (complices[j].GetWater == true && animals[i].GetReservoir == true && complices[j].GetHeat == false && animals[i].GetHeat == false)
                     {
-                        Console.WriteLine($"{animals[i].ToString()}\t могут быть помешенны помещены в  {complices[j].ToString()}.");
+                        //Console.WriteLine($"{animals[i].ToString()}\t могут быть помешенны помещены в  {complices[j].ToString()}.");
                         complices[j].adding(animals[i]);
 
                     }
                     if (complices[j].GetWater == true && animals[i].GetReservoir == true && complices[j].GetHeat == true && animals[i].GetHeat == true)
                     {
-                        Console.WriteLine($"{animals[i].ToString()}\t  могут быть помешенны помещены в  {complices[j].ToString()}.");
+                        //Console.WriteLine($"{animals[i].ToString()}\t  могут быть помешенны помещены в  {complices[j].ToString()}.");
                         complices[j].adding(animals[i]);
                     }
                     if (complices[j].GetWater == false && animals[i].GetReservoir == false && complices[j].GetHeat == true && animals[i].GetHeat == true)
                     {
-                        Console.WriteLine($"{animals[i].ToString()}\t  могут быть помешенны помещены в  {complices[j].ToString()}.");
+                        //Console.WriteLine($"{animals[i].ToString()}\t  могут быть помешенны помещены в  {complices[j].ToString()}.");
                         complices[j].adding(animals[i]);
                     }
                     if (complices[j].GetWater == false && animals[i].GetReservoir == false && complices[j].GetHeat == false && animals[i].GetHeat == false)
                     {
-                        Console.WriteLine($"{animals[i].ToString()}\t  могут быть помешенны помещены в  {complices[j].ToString()}.");
+                        //Console.WriteLine($"{animals[i].ToString()}\t  могут быть помешенны помещены в  {complices[j].ToString()}.");
                         complices[j].adding(animals[i]);
                     }
                 }

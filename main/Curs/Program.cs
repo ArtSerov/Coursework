@@ -12,12 +12,11 @@ namespace Curs
     {
         static void Main(string[] args)
         {
-
+            
             //List<string> fam = InputOutput.ReadWaterFamilyData("C:\\Users\\ТЕМА\\Desktop\\Course-work\\Course-work\\Coursework\\main\\family.csv");
             //List<FamilyOfAnimals> allfam = new List<FamilyOfAnimals>();
             List<Complex> newcom = InputOutput.ReadComplexData("C:\\Users\\ТЕМА\\Desktop\\Course-work\\Course-work\\Coursework\\main\\ComplexData.csv");
             //List<TypeOfAnimal> animals = InputOutput.ReadAnimalsData("C:\\Users\\ТЕМА\\Desktop\\Course-work\\Course-work\\Coursework\\main\\Animals.csv", fam, ref allfam);
-            
             List<TypeOfAnimal> animals = new List<TypeOfAnimal>
             {
                 new TypeOfAnimal("Волосатая лягушка", 2, "Африка", true, "Пискуньи"),
@@ -30,30 +29,30 @@ namespace Curs
             {
                 SMComplex.WriteObject(x);
             }
+            Console.WriteLine("\n");
             SaveManager SMAnimals = new SaveManager("animal.csv");
             foreach (var x in animals)
             {
                 SMAnimals.WriteObject(x);
             }
-
-             LoadManager loader1 = new LoadManager("animal.csv");
+            Console.WriteLine();
+            LoadManager loader1 = new LoadManager("animal.csv");
+             loader1.ObjectDidLoad += OnObjectDidLoad;
              List<TypeOfAnimal> loadAni = new List<TypeOfAnimal>();
              loader1.BeginRead();
              while (loader1.IsLoading)
                  loadAni.Add(loader1.Read(new TypeOfAnimal.Loader()) as TypeOfAnimal);
              loader1.EndRead();
-             foreach (var x in loadAni)
-                 Console.WriteLine(x);
-            
+            Console.WriteLine("\n");
 
             LoadManager loader = new LoadManager("complex.csv");
+            loader.ObjectDidLoad += OnObjectDidLoad;
             List<Complex> load = new List<Complex>();
             loader.BeginRead();
             while (loader.IsLoading)
                 load.Add(loader.Read(new Complex.Loader()) as Complex);
             loader.EndRead();
-            foreach (var x in load)
-                Console.WriteLine(x);
+            
 
 
 
@@ -78,6 +77,10 @@ namespace Curs
             #endregion
             Console.ReadKey();
 
+        }
+        public static void OnObjectDidLoad(object sender, IReadbleObject e)
+        {
+            Console.WriteLine($"Объект загружен: {e}");
         }
     }
 }

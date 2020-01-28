@@ -27,18 +27,23 @@ namespace Curs
         {
             FileInfo file;
             StreamReader input;
-            public LoadManager(string filename)
-            {
-                file = new FileInfo(filename);
-                input = null;
+        
+        public LoadManager(string filename)
+         {
+               file = new FileInfo(filename);
+               input = null;
+         }
+        public event EventHandler<IReadbleObject> ObjectDidLoad;
+
+        public IReadbleObject Read(IReadableObjectLoader loader)
+        {
+            var result = loader.Load(this);
+            if (ObjectDidLoad != null)
+                ObjectDidLoad.Invoke(this, result);
+            return result;
             }
 
-            public IReadbleObject Read(IReadableObjectLoader loader)
-            {
-                return loader.Load(this);
-            }
-
-            public void BeginRead()
+        public void BeginRead()
             {
                 if (input != null)
                     throw new IOException("Load Error");
