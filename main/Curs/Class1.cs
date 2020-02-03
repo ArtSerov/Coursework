@@ -148,7 +148,6 @@ namespace Cours
             this.name_complex = name_complex;
             this.room_number = room_number;
             presents = new Dictionary<TypeOfAnimal, int>();
-            Console.WriteLine("Criete new complex");
         }
         public Complex(string name_complex, int room_number, string water, string heat)
         {

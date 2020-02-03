@@ -27,13 +27,15 @@ namespace Curs
         {
             FileInfo file;
             StreamReader input;
-        
+        public event EventHandler<IReadbleObject> ObjectDidLoad;
+        public event EventHandler<FileInfo> DidStartLoad;
+        public event EventHandler<FileInfo> DidEndLoad;
+
         public LoadManager(string filename)
          {
                file = new FileInfo(filename);
                input = null;
          }
-        public event EventHandler<IReadbleObject> ObjectDidLoad;
 
         public IReadbleObject Read(IReadableObjectLoader loader)
         {
@@ -47,8 +49,9 @@ namespace Curs
             {
                 if (input != null)
                     throw new IOException("Load Error");
-
-                input = file.OpenText();
+            if (DidStartLoad != null)
+                DidStartLoad.Invoke(this, file);
+            input = file.OpenText();
             }
             public bool IsLoading
             {
@@ -67,8 +70,10 @@ namespace Curs
             {
                 if (input == null)
                     throw new IOException("Load Error");
+            if (DidEndLoad != null)
+                DidEndLoad.Invoke(this, file);
 
-                input.Close();
+            input.Close();
             }
         }
     
